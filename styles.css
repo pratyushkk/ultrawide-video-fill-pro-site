@@ -1592,6 +1592,146 @@ p {
     gap: 16px;
     align-items: center;
   }
+/* ==========================================================================
+   Privacy Policy Dedicated Page
+   ========================================================================== */
+.policy-page {
+  padding: 60px 0 100px;
+}
+
+.policy-card {
+  max-width: 880px;
+  margin: 0 auto;
+  background: rgba(13, 20, 38, 0.78);
+  border: 1px solid var(--border-highlight);
+  border-radius: var(--radius-xl);
+  padding: 48px 50px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(56, 189, 248, 0.08);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+.policy-header {
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 28px;
+  margin-bottom: 36px;
+}
+
+.policy-header h1 {
+  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+  margin-bottom: 12px;
+}
+
+.policy-meta {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+}
+
+.policy-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.policy-highlight-box {
+  background: rgba(56, 189, 248, 0.06);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: var(--radius-md);
+  padding: 20px 24px;
+  margin-bottom: 36px;
+}
+
+.policy-highlight-box h3 {
+  font-size: 1.08rem;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.policy-highlight-box p {
+  font-size: 0.94rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.policy-section {
+  margin-bottom: 38px;
+}
+
+.policy-section h2 {
+  font-size: 1.35rem;
+  color: var(--text-primary);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.policy-section p {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 14px;
+}
+
+.policy-section ul {
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.policy-section li {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.policy-section li svg {
+  color: var(--accent-cyan);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.policy-section strong {
+  color: var(--text-primary);
+}
+
+.policy-section code {
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.07);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.88em;
+  color: var(--accent-cyan);
+}
+
+.policy-footer-note {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 28px;
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .policy-card {
+    padding: 30px 20px;
+  }
 }
 
 /* Respect Reduced Motion */
