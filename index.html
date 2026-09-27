@@ -1,407 +1,795 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UltraWide Video Fill Pro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UltraWide Video Fill Pro — Fill Your Ultrawide</title>
+  <meta name="description" content="Eliminate black bars on 21:9 and 32:9 ultrawide monitors. Features 1-click aspect ratio presets, GPU-accelerated sharpness, real-time HDR boost, and global brightness control.">
+  <link rel="canonical" href="https://pratyushkk.github.io/ultrawide-video-fill-pro-site/">
+  <meta name="theme-color" content="#050816">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pratyushkk.github.io/ultrawide-video-fill-pro-site/">
+  <meta property="og:title" content="UltraWide Video Fill Pro — Fill Your Ultrawide">
+  <meta property="og:description" content="Eliminate black bars on 21:9 and 32:9 ultrawide monitors. Features 1-click aspect ratio presets, GPU sharpness, and dynamic HDR boost.">
+  <meta property="og:image" content="assets/og-image.png">
 
-<style>
-:root{
-    --bg:#050816;
-    --card:rgba(255,255,255,.05);
-    --border:rgba(255,255,255,.08);
-    --text:#fff;
-    --muted:#b6c2df;
-}
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://pratyushkk.github.io/ultrawide-video-fill-pro-site/">
+  <meta name="twitter:title" content="UltraWide Video Fill Pro — Fill Your Ultrawide">
+  <meta name="twitter:description" content="Eliminate black bars on 21:9 and 32:9 ultrawide monitors with 1-click presets, WebGPU sharpness, and HDR tone mapping.">
+  <meta name="twitter:image" content="assets/og-image.png">
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 
-body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    overflow-x:hidden;
-}
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-.bg{
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    background:
-    radial-gradient(circle at 15% 25%, rgba(59,130,246,.25), transparent 30%),
-    radial-gradient(circle at 85% 20%, rgba(168,85,247,.25), transparent 30%),
-    radial-gradient(circle at 50% 85%, rgba(6,182,212,.18), transparent 35%),
-    #050816;
-}
-
-.container{
-    width:min(1100px,90%);
-    margin:auto;
-}
-
-.hero{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:80px 0;
-}
-
-.badge{
-    display:inline-block;
-    padding:10px 18px;
-    border-radius:9999px;
-    background:rgba(255,255,255,.05);
-    border:1px solid var(--border);
-    margin-bottom:25px;
-    color:#d7dff5;
-}
-
-.logo{
-    width:220px;
-    max-width:70vw;
-    display:block;
-    margin:0 auto 35px;
-    border-radius:28px;
-    transition:.35s;
-    filter:
-      drop-shadow(0 0 20px rgba(59,130,246,.6))
-      drop-shadow(0 0 45px rgba(168,85,247,.4));
-}
-
-.logo:hover{
-    transform:translateY(-8px) scale(1.03);
-}
-
-h1{
-    font-size:clamp(3rem,8vw,6rem);
-    line-height:1;
-    margin-bottom:20px;
-    font-weight:800;
-}
-
-.gradient{
-    background:linear-gradient(
-        90deg,
-        #60a5fa,
-        #8b5cf6,
-        #22d3ee
-    );
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-}
-
-.hero p{
-    max-width:740px;
-    margin:auto;
-    font-size:1.15rem;
-    line-height:1.8;
-    color:var(--muted);
-}
-
-.buttons{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:16px;
-    margin-top:40px;
-}
-
-.btn{
-    text-decoration:none;
-    padding:15px 28px;
-    border-radius:16px;
-    font-weight:600;
-    transition:.25s;
-}
-
-.primary{
-    color:white;
-    background:linear-gradient(135deg,#4f46e5,#06b6d4);
-    box-shadow:0 15px 35px rgba(79,70,229,.35);
-}
-
-.primary:hover{
-    transform:translateY(-3px);
-}
-
-.secondary{
-    color:white;
-    border:1px solid var(--border);
-    background:rgba(255,255,255,.04);
-}
-
-.secondary:hover{
-    background:rgba(255,255,255,.08);
-}
-
-.stats{
-    margin-top:60px;
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.stat{
-    background:var(--card);
-    border:1px solid var(--border);
-    border-radius:20px;
-    padding:22px;
-    min-width:180px;
-    backdrop-filter:blur(20px);
-}
-
-.stat h3{
-    font-size:1.5rem;
-    margin-bottom:6px;
-}
-
-.stat p{
-    color:var(--muted);
-}
-
-section{
-    padding:100px 0;
-}
-
-.section-title{
-    font-size:2.7rem;
-    text-align:center;
-    margin-bottom:15px;
-}
-
-.section-subtitle{
-    color:var(--muted);
-    text-align:center;
-    max-width:700px;
-    margin:auto;
-    line-height:1.8;
-}
-
-.features{
-    margin-top:55px;
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:24px;
-}
-
-.card{
-    background:var(--card);
-    border:1px solid var(--border);
-    padding:30px;
-    border-radius:24px;
-    backdrop-filter:blur(20px);
-    transition:.3s;
-}
-
-.card:hover{
-    transform:translateY(-6px);
-}
-
-.card-icon{
-    font-size:2rem;
-    margin-bottom:14px;
-}
-
-.card h3{
-    margin-bottom:10px;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.8;
-}
-
-.cta{
-    text-align:center;
-}
-
-.cta-box{
-    background:var(--card);
-    border:1px solid var(--border);
-    padding:60px 30px;
-    border-radius:32px;
-    backdrop-filter:blur(20px);
-}
-
-.footer{
-    padding:35px;
-    text-align:center;
-    color:#95a2bf;
-    border-top:1px solid var(--border);
-}
-
-@media(max-width:768px){
-
-    .buttons{
-        flex-direction:column;
-    }
-
-    .btn{
-        width:100%;
-    }
-
-    .section-title{
-        font-size:2rem;
-    }
-
-    .logo{
-        width:180px;
-    }
-
-    .hero p{
-        font-size:1rem;
-    }
-}
-</style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div class="bg"></div>
+  <!-- Ambient Glow Background -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="glow-top"></div>
+    <div class="glow-mid"></div>
+    <div class="glow-bottom"></div>
+  </div>
 
-<div class="container">
+  <!-- 1. Floating Glass Navigation -->
+  <nav class="site-nav" aria-label="Main Navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-brand">
+        <img src="assets/logo.png" alt="UltraWide Video Fill Pro Logo" class="brand-logo-img">
+        <div class="brand-text-group">
+          <span class="brand-primary">UltraWide</span>
+          <span class="brand-secondary">Video Fill Pro</span>
+        </div>
+      </a>
 
-<section class="hero">
-<div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#compatibility">Compatibility</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+      </ul>
 
-<div class="badge">
-✨ Designed for Ultrawide Displays
-</div>
+      <div class="nav-actions">
+        <a href="https://github.com/pratyushkk/ultrawide-video-fill-pro/releases/latest" class="btn btn-primary btn-sm">Get Extension</a>
+      </div>
 
-<img src="logo.png" alt="UltraWide Video Fill Pro Logo" class="logo">
+      <button class="nav-mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
 
-<h1>
-UltraWide
-<span class="gradient">Video Fill Pro</span>
-</h1>
+    <!-- Mobile Dropdown -->
+    <div class="nav-mobile-menu">
+      <ul>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#compatibility">Compatibility</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+      </ul>
+      <a href="https://github.com/pratyushkk/ultrawide-video-fill-pro/releases/latest" class="btn btn-primary" style="width: 100%;">Get Extension</a>
+    </div>
+  </nav>
 
-<p>
-Fill every pixel of your ultrawide display. Remove distracting black bars and
-enjoy immersive video playback across your favorite streaming platforms.
-</p>
+  <!-- 2. Hero Section -->
+  <header class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="eyebrow-badge">
+          <span class="pulse-dot"></span>
+          BUILT FOR ULTRAWIDE
+        </div>
+        <h1 class="hero-title">
+          Fill Every Pixel.<br>
+          <span class="gradient-text">Keep the Cinema.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Remove distracting black bars and make supported web videos fit your ultrawide display with a single click.
+        </p>
 
-<div class="buttons">
+        <div class="hero-buttons">
+          <a href="https://github.com/pratyushkk/ultrawide-video-fill-pro/releases/latest" class="btn btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Get UltraWide Video Fill Pro
+          </a>
+          <a href="https://github.com/pratyushkk/ultrawide-video-fill-pro" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            View on GitHub
+          </a>
+        </div>
+      </div>
 
-#
-Install Extension
-</a>
+      <!-- Hero Monitor & Extension Dropdown Representation -->
+      <div class="hero-monitor-wrapper">
+        <div class="hero-monitor-screen" id="heroMonitorScreen">
+          <div class="hero-video-scene" id="heroVideoScene"></div>
+          
+          <!-- Black bars simulation for 16:9 on 21:9 -->
+          <div class="hero-black-bars" aria-hidden="true">
+            <div class="bar"></div>
+            <div class="bar"></div>
+          </div>
 
-https://github.com/pratyushkk/ultrawide-video-fill-pro
-View on GitHub
-</a>
+          <!-- Video Player Controls Overlay -->
+          <div class="video-player-bar">
+            <div class="video-player-controls">
+              <button class="player-btn" aria-label="Play/Pause">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+              </button>
+              <button class="player-btn" aria-label="Volume">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                  <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                </svg>
+              </button>
+            </div>
+            <div class="player-timeline">
+              <div class="player-timeline-fill"></div>
+            </div>
+            <div class="video-mode-indicator" id="heroModeBadge">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+              </svg>
+              21:9 Zoom to Fill Active
+            </div>
+          </div>
+        </div>
 
-</div>
+        <!-- Interactive Representation of the Extension Dropdown -->
+        <div class="hero-extension-popup" aria-label="Extension Popup Control Panel">
+            <div class="popup-header">
+              <div class="popup-header-brand">
+                <img src="assets/logo.png" alt="Icon" class="popup-logo-icon">
+                <div>
+                  <div class="popup-title">UltraWide</div>
+                  <div class="popup-subtitle">Video Fill Pro</div>
+                </div>
+              </div>
+              <div class="popup-header-status">
+                <div class="popup-status-badge">
+                  <span class="popup-status-dot"></span>
+                  Active
+                </div>
+                <button class="popup-gear-btn" title="Settings">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
 
-<div class="stats">
+            <!-- Popup Controls -->
+            <div class="popup-control-group">
+              <!-- Zoom to Fill Toggle -->
+              <div class="popup-row-toggle" id="heroZoomToggleRow" role="button" tabindex="0">
+                <div class="popup-toggle-label">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                  </svg>
+                  <span>Zoom to Fill</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span id="heroZoomStatus" style="font-size: 0.74rem; font-weight: 700; color: var(--accent-cyan);">ON</span>
+                  <div class="switch-slider active" id="heroZoomSwitch"></div>
+                </div>
+              </div>
 
-<div class="stat">
-<h3>⚡</h3>
-<p>One Click Toggle</p>
-</div>
+              <!-- Crop / Zoom Slider -->
+              <div class="popup-slider-item">
+                <div class="popup-slider-header">
+                  <span class="popup-slider-label">Crop / Zoom</span>
+                  <span class="popup-slider-val" id="heroCropVal">112%</span>
+                </div>
+                <input type="range" min="80" max="150" value="112" class="custom-range" id="heroCropSlider" aria-label="Crop Zoom">
+              </div>
 
-<div class="stat">
-<h3>🖥️</h3>
-<p>Ultrawide Optimized</p>
-</div>
+              <!-- Sharpness Slider -->
+              <div class="popup-slider-item">
+                <div class="popup-slider-header">
+                  <span class="popup-slider-label">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <polygon points="12 2 22 22 2 22"></polygon>
+                    </svg>
+                    Sharpness
+                  </span>
+                  <span class="popup-slider-val" id="heroSharpVal">35%</span>
+                </div>
+                <input type="range" min="0" max="100" value="35" class="custom-range" id="heroSharpSlider" aria-label="Sharpness">
+              </div>
 
-<div class="stat">
-<h3>🔒</h3>
-<p>Privacy First</p>
-</div>
+              <!-- HDR Boost Slider -->
+              <div class="popup-slider-item">
+                <div class="popup-slider-header">
+                  <span class="popup-slider-label">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <circle cx="12" cy="12" r="5"></circle>
+                      <line x1="12" y1="1" x2="12" y2="3"></line>
+                      <line x1="12" y1="21" x2="12" y2="23"></line>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                      <line x1="1" y1="12" x2="3" y2="12"></line>
+                      <line x1="21" y1="12" x2="23" y2="12"></line>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    HDR Boost
+                  </span>
+                  <span class="popup-slider-val hdr" id="heroHdrVal">60%</span>
+                </div>
+                <input type="range" min="0" max="100" value="60" class="custom-range hdr-range" id="heroHdrSlider" aria-label="HDR Boost">
+              </div>
 
-</div>
+              <!-- Presets Row -->
+              <div class="popup-presets-row">
+                <span class="popup-presets-title">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                  </svg>
+                  Presets
+                </span>
+                <button class="popup-preset-pill" id="heroPresetPill">
+                  <span id="heroPresetText">21:9 Ultrawide</span>
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </header>
 
-</div>
-</section>
+  <!-- 3. Feature Strip -->
+  <section class="feature-strip-section" aria-label="Key Highlights">
+    <div class="container">
+      <div class="feature-strip-grid">
+        <div class="feature-strip-item">
+          <svg class="strip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+          </svg>
+          <h3>Zoom to Fill</h3>
+          <p>Automatically remove unwanted black bars with a single click.</p>
+        </div>
 
-<section>
+        <div class="feature-strip-item">
+          <svg class="strip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2v14a2 2 0 0 0 2 2h14"></path>
+            <path d="M18 22V8a2 2 0 0 0-2-2H2"></path>
+          </svg>
+          <h3>Precision Crop</h3>
+          <p>Control exactly how much of the frame is cropped with AUTO positioning.</p>
+        </div>
 
-<h2 class="section-title">
-Built for Immersion
-</h2>
+        <div class="feature-strip-item">
+          <svg class="strip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 22 22 2 22"></polygon>
+          </svg>
+          <h3>Sharpness</h3>
+          <p>Recover edge fidelity with GPU-accelerated WebGPU/WebGL2 shaders.</p>
+        </div>
 
-<p class="section-subtitle">
-A lightweight extension made specifically for ultrawide displays.
-Enjoy a larger, cleaner, more immersive viewing experience.
-</p>
+        <div class="feature-strip-item">
+          <svg class="strip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <h3>HDR Boost</h3>
+          <p>Enhance perceived dynamic range and highlight detail in real time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="features">
+  <!-- 4. "Made for Ultrawide" Showcase Section -->
+  <section id="features" class="showcase-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">
+          ASPECT RATIO ADAPTATION
+        </div>
+        <h2 class="section-title">Designed for the screens ordinary video players ignore.</h2>
+        <p class="section-subtitle">
+          UltraWide Video Fill Pro intelligently scales and crops the video to use more of your available display while preserving the selected viewing mode.
+        </p>
+      </div>
 
-<div class="card">
-<div class="card-icon">🎬</div>
-<h3>Fill Black Bars</h3>
-<p>
-Transform unused screen space into a more immersive viewing experience.
-</p>
-</div>
+      <!-- Aspect Ratio Tabs -->
+      <div class="ratio-tabs-nav" role="tablist">
+        <button class="ratio-tab-btn" data-ratio="16:9">16:9 Standard</button>
+        <button class="ratio-tab-btn" data-ratio="18:9">18:9 Cinema / Mobile</button>
+        <button class="ratio-tab-btn active" data-ratio="21:9">21:9 Ultrawide</button>
+        <button class="ratio-tab-btn" data-ratio="32:9">32:9 Super Ultrawide</button>
+      </div>
 
-<div class="card">
-<div class="card-icon">⚡</div>
-<h3>Instant Control</h3>
-<p>
-Turn the feature on or off anytime with a single click.
-</p>
-</div>
+      <!-- Interactive Ratio Monitor Box -->
+      <div class="ratio-display-box">
+        <div class="ratio-display-screen" id="ratioDisplayScreen">
+          <div class="ratio-bg-video" id="ratioBgVideo"></div>
+          <div class="ratio-mask-left" id="ratioMaskLeft"></div>
+          <div class="ratio-mask-right" id="ratioMaskRight"></div>
+          
+          <div class="ratio-info-banner">
+            <span id="ratioBannerText">21:9 Ultrawide (2560x1080 / 3440x1440) — Black bars completely eliminated</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<div class="card">
-<div class="card-icon">🚀</div>
-<h3>Lightweight</h3>
-<p>
-Designed to stay fast and responsive while watching videos.
-</p>
-</div>
+  <!-- 5. Sharpness + HDR Section -->
+  <section class="showcase-section" style="padding-top: 20px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">GPU VIDEO PIPELINE</div>
+        <h2 class="section-title">More than just filling the screen.</h2>
+        <p class="section-subtitle">Fine-tune the image without leaving your video.</p>
+      </div>
 
-<div class="card">
-<div class="card-icon">🔐</div>
-<h3>Privacy Friendly</h3>
-<p>
-No accounts, no tracking and no unnecessary data collection.
-</p>
-</div>
+      <div class="enhancement-grid">
+        <!-- Sharpness Card -->
+        <div class="enhancement-card card-sharpness">
+          <div class="enhancement-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <polygon points="12 2 22 22 2 22"></polygon>
+            </svg>
+          </div>
+          <h3>Sharpness</h3>
+          <p>Recover perceived fine detail while protecting edges from excessive halos and ringing.</p>
+          
+          <div class="slider-demo-wrap">
+            <div class="slider-demo-header">
+              <span style="color: var(--text-secondary);">Adjustment</span>
+              <span style="color: var(--accent-cyan); font-variant-numeric: tabular-nums;" id="showcaseSharpVal">35</span>
+            </div>
+            <input type="range" min="0" max="100" value="35" class="custom-range" id="showcaseSharpSlider" aria-label="Showcase Sharpness">
+          </div>
+        </div>
 
-</div>
+        <!-- HDR Boost Card -->
+        <div class="enhancement-card card-hdr">
+          <div class="enhancement-icon-wrap">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </div>
+          <h3>HDR Boost</h3>
+          <p>Enhance perceived highlights, contrast and dynamic range with controlled tone mapping.</p>
+          
+          <div class="slider-demo-wrap">
+            <div class="slider-demo-header">
+              <span style="color: var(--text-secondary);">Tone Mapping</span>
+              <span style="color: var(--accent-hdr-orange); font-variant-numeric: tabular-nums;" id="showcaseHdrVal">60</span>
+            </div>
+            <input type="range" min="0" max="100" value="60" class="custom-range hdr-range" id="showcaseHdrSlider" aria-label="Showcase HDR">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</section>
+  <!-- 6. Interactive Before / After Comparison -->
+  <section class="showcase-section" style="padding-top: 20px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">REAL-TIME COMPARISON</div>
+        <h2 class="section-title">See the difference in motion.</h2>
+        <p class="section-subtitle">Drag the slider across the frame to compare letterboxed video with an ultrawide enhanced picture.</p>
+      </div>
 
-<section class="cta">
+      <div class="comparison-container" id="comparisonContainer" style="--divider-pos: 50%;">
+        <!-- After Side (Filled, Sharp, HDR) -->
+        <div class="comparison-after" aria-label="Enhanced 21:9 Video"></div>
+        <div class="comp-badge right">UltraWide Enhanced</div>
 
-<div class="cta-box">
+        <!-- Before Side (Clipped with black bars) -->
+        <div class="comparison-before" aria-label="Original 16:9 Video"></div>
+        <div class="comp-badge left">Original (Black Bars)</div>
 
-<h2 class="section-title">
-Enjoy Every Pixel
-</h2>
+        <!-- Draggable Handle -->
+        <div class="comparison-divider" id="comparisonDivider" role="slider" aria-label="Before/After Divider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+          <div class="comparison-handle" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="15 18 9 12 15 6"></polyline>
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<p class="section-subtitle">
-Experience videos the way your ultrawide monitor was meant to be used.
-</p>
+  <!-- 7. How It Works (3 Steps Only) -->
+  <section id="how-it-works" class="showcase-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">WORKFLOW</div>
+        <h2 class="section-title">How it works.</h2>
+        <p class="section-subtitle">Three simple steps to an immersive viewing experience.</p>
+      </div>
 
-<div class="buttons">
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <h3>Open a video</h3>
+          <p>Play any supported video in your browser across your favorite streaming platform.</p>
+        </div>
 
-#
-Get Extension
-</a>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <h3>Open UltraWide</h3>
+          <p>Click the extension icon in your browser toolbar or press <kbd style="background: rgba(255,255,255,0.08); padding: 2px 6px; border-radius: 4px; font-size: 0.85em;">Alt+Shift+F</kbd>.</p>
+        </div>
 
-</div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <h3>Fill & Enhance</h3>
+          <p>Turn on Zoom to Fill and adjust sharpness, HDR boost, or brightness to your preference.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</div>
+  <!-- 8. Product UI Showcase -->
+  <section class="showcase-section" style="padding-top: 10px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">COMPACT CONTROLS</div>
+        <h2 class="section-title">Everything important. Nothing unnecessary.</h2>
+        <p class="section-subtitle">A focused dropdown control panel you can open, adjust in seconds, and close.</p>
+      </div>
 
-</section>
+      <div class="ui-breakdown-wrap">
+        <!-- Floating Popup Mockup -->
+        <div class="hero-extension-popup" style="position: static; width: 340px; box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 40px rgba(56,189,248,0.15);">
+          <div class="popup-header">
+            <div class="popup-header-brand">
+              <img src="assets/logo.png" alt="Logo" class="popup-logo-icon">
+              <div>
+                <div class="popup-title">UltraWide</div>
+                <div class="popup-subtitle">Video Fill Pro</div>
+              </div>
+            </div>
+            <div class="popup-header-status">
+              <div class="popup-status-badge">
+                <span class="popup-status-dot"></span>
+                Active
+              </div>
+              <button class="popup-gear-btn" title="Settings">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
 
-</div>
+          <div class="popup-control-group">
+            <div class="popup-row-toggle">
+              <div class="popup-toggle-label">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                </svg>
+                <span>Zoom to Fill</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 0.74rem; font-weight: 700; color: var(--accent-cyan);">ON</span>
+                <div class="switch-slider active"></div>
+              </div>
+            </div>
 
-<footer class="footer">
-© 2026 UltraWide Video Fill Pro • Open Source
-</footer>
+            <div class="popup-slider-item">
+              <div class="popup-slider-header">
+                <span class="popup-slider-label">Crop / Zoom</span>
+                <span class="popup-slider-val">118%</span>
+              </div>
+              <input type="range" min="80" max="150" value="118" class="custom-range">
+            </div>
 
+            <div class="popup-slider-item">
+              <div class="popup-slider-header">
+                <span class="popup-slider-label">Sharpness</span>
+                <span class="popup-slider-val">35%</span>
+              </div>
+              <input type="range" min="0" max="100" value="35" class="custom-range">
+            </div>
+
+            <div class="popup-slider-item">
+              <div class="popup-slider-header">
+                <span class="popup-slider-label">HDR Boost</span>
+                <span class="popup-slider-val hdr">60%</span>
+              </div>
+              <input type="range" min="0" max="100" value="60" class="custom-range hdr-range">
+            </div>
+
+            <div class="popup-presets-row">
+              <span class="popup-presets-title">Presets</span>
+              <button class="popup-preset-pill">
+                <span>21:9 Cinematic</span>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explanatory Highlights -->
+        <div class="ui-breakdown-details">
+          <div class="ui-detail-row">
+            <span class="ui-detail-dot"></span>
+            <div>
+              <h4>Zoom to Fill</h4>
+              <p>Instant 1-click toggle that removes letterboxing without manual math.</p>
+            </div>
+          </div>
+
+          <div class="ui-detail-row">
+            <span class="ui-detail-dot"></span>
+            <div>
+              <h4>Precision Crop Slider</h4>
+              <p>Continuous zoom control from 50% to 200% with a snap marker at AUTO.</p>
+            </div>
+          </div>
+
+          <div class="ui-detail-row">
+            <span class="ui-detail-dot"></span>
+            <div>
+              <h4>GPU Sharpness & HDR Boost</h4>
+              <p>Hardware-accelerated shaders restore contrast and micro-details on scaled video.</p>
+            </div>
+          </div>
+
+          <div class="ui-detail-row">
+            <span class="ui-detail-dot"></span>
+            <div>
+              <h4>Instant Presets</h4>
+              <p>One-click switching between 16:9, 18:9, 21:9, and 32:9 screen configurations.</p>
+            </div>
+          </div>
+
+          <div class="ui-detail-row">
+            <span class="ui-detail-dot"></span>
+            <div>
+              <h4>Global Brightness Control</h4>
+              <p>Universal luminance slider across all web tabs with a 1-click reset to 100%.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Compatibility Section -->
+  <section id="compatibility" class="showcase-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">PLATFORM COMPATIBILITY</div>
+        <h2 class="section-title">Made for the web.</h2>
+        <p class="section-subtitle">Designed to work with compatible HTML5 video players across the web.</p>
+      </div>
+
+      <div class="compat-grid">
+        <div class="compat-badge">
+          <svg class="compat-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+          </svg>
+          <span>YouTube</span>
+        </div>
+
+        <div class="compat-badge">
+          <svg class="compat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="4"></rect>
+            <path d="M7 10l5 4 5-4"></path>
+          </svg>
+          <span>Prime Video</span>
+        </div>
+
+        <div class="compat-badge">
+          <svg class="compat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4v16h4V10l8 10h4V4h-4v10L8 4H4z"></path>
+          </svg>
+          <span>Netflix</span>
+        </div>
+
+        <div class="compat-badge">
+          <svg class="compat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+          </svg>
+          <span>JioHotstar</span>
+        </div>
+
+        <div class="compat-badge">
+          <svg class="compat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v12M6 12h12"></path>
+          </svg>
+          <span>Disney+</span>
+        </div>
+
+        <div class="compat-badge">
+          <svg class="compat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="23 7 16 12 23 17 23 7"></polygon>
+            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+          </svg>
+          <span>HTML5 Players</span>
+        </div>
+      </div>
+
+      <div class="compat-drm-note">
+        <strong>Note on DRM-Protected Sites:</strong> On hardware-protected platforms (Netflix, Prime Video, Disney+), UltraWide Video Fill Pro runs in hardware-safe mode using CSS transformations to guarantee uninterrupted, black-screen-free playback.
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Performance Section -->
+  <section class="showcase-section" style="padding-top: 20px;">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow-badge">ARCHITECTURE</div>
+        <h2 class="section-title">Powerful without getting in the way.</h2>
+      </div>
+
+      <div class="performance-grid">
+        <div class="perf-card">
+          <svg class="perf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+            <rect x="9" y="9" width="6" height="6"></rect>
+            <line x1="9" y1="1" x2="9" y2="4"></line>
+            <line x1="15" y1="1" x2="15" y2="4"></line>
+            <line x1="9" y1="20" x2="9" y2="23"></line>
+            <line x1="15" y1="20" x2="15" y2="23"></line>
+            <line x1="20" y1="9" x2="23" y2="9"></line>
+            <line x1="20" y1="14" x2="23" y2="14"></line>
+            <line x1="1" y1="9" x2="4" y2="9"></line>
+            <line x1="1" y1="14" x2="4" y2="14"></line>
+          </svg>
+          <h3>GPU Accelerated</h3>
+          <p>Uses hardware acceleration when supported via WebGPU with graceful WebGL2 fallback.</p>
+        </div>
+
+        <div class="perf-card">
+          <svg class="perf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+          </svg>
+          <h3>Lightweight</h3>
+          <p>Avoids unnecessary processing and DOM overhead when enhancement controls are disabled.</p>
+        </div>
+
+        <div class="perf-card">
+          <svg class="perf-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+          <h3>Adaptive</h3>
+          <p>Adjusts processing dynamically to the active video dimensions and host capabilities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Privacy Section -->
+  <section id="privacy" class="showcase-section">
+    <div class="container">
+      <div class="privacy-banner-card">
+        <div class="eyebrow-badge">LOCAL PROCESSING</div>
+        <h2>Your videos stay yours.</h2>
+        <p>UltraWide Video Fill Pro is designed to process video locally in the browser. No account is required for the core extension experience.</p>
+
+        <div class="privacy-features-list">
+          <div class="privacy-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            100% Client-Side Processing
+          </div>
+          <div class="privacy-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Zero Telemetry & Tracking
+          </div>
+          <div class="privacy-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            No Login or Account Needed
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. Final Call to Action -->
+  <section class="final-cta-section">
+    <div class="container">
+      <div class="final-cta-frame">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <h2>Make your ultrawide feel ultrawide.</h2>
+        <p>Stop wasting screen space on black bars.</p>
+        
+        <div class="final-cta-buttons">
+          <a href="https://github.com/pratyushkk/ultrawide-video-fill-pro/releases/latest" class="btn btn-primary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+            </svg>
+            Get UltraWide Video Fill Pro
+          </a>
+          <a href="https://github.com/pratyushkk/ultrawide-video-fill-pro" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            View source on GitHub
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Minimal Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="assets/logo.png" alt="Logo">
+          <span class="footer-brand-title">UltraWide Video Fill Pro</span>
+        </div>
+
+        <ul class="footer-links">
+          <li><a href="https://github.com/pratyushkk/ultrawide-video-fill-pro" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://github.com/pratyushkk/ultrawide-video-fill-pro/blob/main/PRIVACY_POLICY.md" target="_blank" rel="noopener noreferrer">Privacy</a></li>
+          <li><a href="https://github.com/pratyushkk/ultrawide-video-fill-pro/issues" target="_blank" rel="noopener noreferrer">Support</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 UltraWide Video Fill Pro. Released under the MIT License.
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
 </body>
 </html>
